@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FontIconViewer"
         xmlns:model="clr-namespace:FontIconViewer.Model"
+        xmlns:wpftk="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=model:MainViewModel, IsDesignTimeCreatable=True}"
         Title="MainWindow" Height="450" Width="800">
@@ -20,6 +21,41 @@
         <DataTemplate x:Key="FontComboBoxStyle" DataType="ComboBox">
             <Label Content="{Binding FamilyName}"/>
         </DataTemplate>
+
+        <DataTemplate x:Key="FontCharacterItemTemplate">
+            <Grid Margin="2,0,2,5"
+                        ToolTip="{Binding Label}"
+                        Grid.IsSharedSizeScope="True"
+                        >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Label Style="{DynamicResource FontLabelStyle}" 
+                            Content="{Binding Label}"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            />
+                <Label Style="{DynamicResource FontLabelStyle}" 
+                            Content="{Binding Glyph}"
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="48"
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            />
+                <Label Style="{DynamicResource FontLabelStyle}" 
+                            FontSize="10"
+                            Content="{Binding Id}"
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            />
+            </Grid>
+        </DataTemplate>
+        
     </Window.Resources>
 
     <Grid Margin="5,5,5,5">
@@ -34,62 +70,17 @@
                   SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                   />
 
-        <ItemsControl Grid.Row="1" 
-                      DataContext="{Binding}"
-                      ItemsSource="{Binding Items}"
-                      IsTabStop="True"
+        <wpftk:VirtualizingItemsControl Grid.Row="1" 
+                                        ItemsSource="{Binding Items}"
+                                        IsTabStop="True"
+                                        ItemTemplate="{DynamicResource FontCharacterItemTemplate}"
                       >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel/>
+                    <wpftk:VirtualizingWrapPanel Orientation="vertical"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            <ItemsControl.Template>
-                <ControlTemplate TargetType="ItemsControl">
-                    <ScrollViewer CanContentScroll="True"
-                                  Padding="{TemplateBinding Padding}"
-                                  Focusable="False"
-                                  >
-                        <ItemsPresenter/>
-                    </ScrollViewer>
-                </ControlTemplate>
-            </ItemsControl.Template>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="2,0,2,5"
-                        ToolTip="{Binding Label}"
-                        Grid.IsSharedSizeScope="True"
-                        >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="60"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Style="{DynamicResource FontLabelStyle}" 
-                            Content="{Binding Label}"
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            />
-                        <Label Style="{DynamicResource FontLabelStyle}" 
-                            Content="{Binding Glyph}"
-                            FontFamily="Segoe MDL2 Assets"
-                            FontSize="48"
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            />
-                        <Label Style="{DynamicResource FontLabelStyle}" 
-                            FontSize="10"
-                            Content="{Binding Id}"
-                            Grid.Row="2"
-                            Grid.Column="0"
-                            />
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </wpftk:VirtualizingItemsControl>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
