@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace FontIconViewer.Model
@@ -175,7 +172,12 @@ namespace FontIconViewer.Model
             // Brute force search
             foreach (FontCharacter item in _selectedItem.Items)
             {
-                if (item.Label.Contains(searchTerm, StringComparison.CurrentCultureIgnoreCase))
+                if 
+                (
+                    item.Label.Contains(searchTerm, StringComparison.CurrentCultureIgnoreCase)
+                    ||
+                    item.Id.Contains(searchTerm, StringComparison.CurrentCultureIgnoreCase)
+                )
                 {
                     result.Add(item);
                 }
@@ -185,7 +187,6 @@ namespace FontIconViewer.Model
         }
 
         #endregion Search
-
  
         #region Cached PropertyChangedEventArgs
 

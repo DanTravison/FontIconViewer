@@ -64,14 +64,13 @@ namespace FontIconViewer.Model
                 {
                     continue;
                 }
-                string infoValue = info.GetValue(null) as string;
-                if (string.IsNullOrEmpty(infoValue))
+                string glyph = info.GetValue(null) as string;
+                if (string.IsNullOrEmpty(glyph))
                 {
                     continue;
                 }
 
-                string id = string.Format("U+{0:X4}", (byte)infoValue[0]);
-                FontCharacter item = new FontCharacter(info.Name, infoValue, id);
+                FontCharacter item = new FontCharacter(info.Name, glyph);
                 items.Add(item);
             }
             return items;

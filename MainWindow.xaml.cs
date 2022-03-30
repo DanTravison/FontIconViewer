@@ -10,7 +10,7 @@ namespace FontIconViewer
     {
         public MainWindow()
         {
-            DataContext = DataContext = new MainViewModel();
+            DataContext = new MainViewModel();
 
             InitializeComponent();
         }

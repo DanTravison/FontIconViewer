@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+﻿using System;
 
 namespace FontIconViewer.Model
 {
@@ -12,12 +12,11 @@ namespace FontIconViewer.Model
         /// </summary>
         /// <param name="label">The display text for the item</param>
         /// <param name="glyph">The string containing the character.</param>
-        /// <param name="id">The formatted character id for the character (U+000X)</param>
-        public FontCharacter(string label, string glyph, string id)
+        public FontCharacter(string label, string glyph)
         {
             Label = label;
             Glyph = glyph;
-            Id = id;
+            Id = string.Format("U+{0:X4}", Convert.ToInt32(glyph[0]));
         }
 
         /// <summary>
