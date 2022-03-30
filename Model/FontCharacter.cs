@@ -16,7 +16,7 @@ namespace FontIconViewer.Model
         {
             Label = label;
             Glyph = glyph;
-            Id = string.Format("U+{0:X4}", Convert.ToInt32(glyph[0]));
+            Id = string.Format("U+{0:X4}", Convert.ToUInt16(glyph[0]));
         }
 
         /// <summary>
